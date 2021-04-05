@@ -5,6 +5,13 @@ updatePlots = (data) => {
     let x_bubble = sample.otu_ids;
     let y_bubble = sample.sample_values;
 }
+
+handleChange = (data) => {
+    let id = d3.event.target.value;
+    updatePlots(data, id)
+}
+
+// Let d3 json load first when you open up the index html
 d3.json("samples.json").then(data => {
     console.log(data);
     // Set up initial stuff
@@ -34,6 +41,8 @@ d3.json("samples.json").then(data => {
     })
 
     // Create a function update plots and bind on change
-    mySelect.on("change", updatePlots);
+    mySelect.on("change", () => handleChange(data));
+
+    // when the page first loads, build your plots for id 940
 
 });
