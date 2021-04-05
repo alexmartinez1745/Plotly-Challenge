@@ -1,3 +1,10 @@
+updatePlots = (data) => {
+    // Value of dropdown item
+    let id = d3.event.target.value;
+    let sample = data.samples.filter(sample => sample.id === id)
+    let x_bubble = sample.otu_ids;
+    let y_bubble = sample.sample_values;
+}
 d3.json("samples.json").then(data => {
     console.log(data);
     // Set up initial stuff
@@ -14,6 +21,7 @@ d3.json("samples.json").then(data => {
 
     // for demographic info:
     // Filter metdata for id
+    // set internal html of demographic info card
 
     //for dropdown list:
     // create an option element for all names
@@ -21,10 +29,11 @@ d3.json("samples.json").then(data => {
 
     let mySelect = d3.select("#selDataset");
     // what we know how to do for right now day 2
-    // mySelect.append("option").attr("value", "set your value").text("set our text");
     data.names.forEach(element => {
         mySelect.append("option").attr("value", element).text(element);
     })
 
+    // Create a function update plots and bind on change
+    mySelect.on("change", updatePlots);
 
 });
