@@ -27,17 +27,21 @@ d3.json("samples.json").then(data => {
     // for hbar:
     // x vals are sample_values
     // y vals are otu_ids
-    let id = d3.event.target.value;
-    let sample = data.samples.filter(sample => sample.id === id)
-    let otuid = sample.otu_ids.slice(0,10)
-    let sample_values = sample.sample_values.slice(0,10)
+    // let id = d3.event.target.value;
+    // let sample = data.samples.filter(sample => sample.id === id)
+    // console.log(sample)
+    let otuid = data.samples.otu_ids
+    let sample_values = data.sample_values
 
-    trace1 = {
+    let trace1 = {
         type: "bar",
         orientation: "h",
         x: sample_values,
         y: otuid,
     }
+
+    datap = [trace1];
+    Plotly.newPlot("bar", datap)
 
     // for demographic info:
     // Filter metdata for id
