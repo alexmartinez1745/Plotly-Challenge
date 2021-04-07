@@ -6,8 +6,9 @@ updatePlots = (data) => {
     let y_bubble = sample.sample_values;
 }
 
-handleChange = (data) => {
-    let id = d3.event.target.value;
+function handleChange(data) {
+    d3.event.preventDefault();
+    var id = d3.select('#selDataset').node().value;
     updatePlots(data)
 }
 
@@ -20,7 +21,7 @@ d3.json("samples.json").then(data => {
     data.names.forEach(element => {
         mySelect.append("option").attr("value", element).text(element);
     })
-    updatePlots(0);
+    // updatePlots(0);
     // Set up initial stuff
     // Filter our samples to element 940, then build plots
         //filter data.samples and only return the ones where id is equal to 940
