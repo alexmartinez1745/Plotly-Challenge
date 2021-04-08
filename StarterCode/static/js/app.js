@@ -54,21 +54,28 @@ function buildPlots(otuID, sampleValues, labels) {
     x: vals,
     y: otus,
     text: hoverText,
+    marker: {color: vals,colorscale: 'Portland'}
   };
 
-  // Call the trace and create plot
+  // Call the trace for barchart and create chart
   let dataBar = [trace1];
   Plotly.newPlot("bar", dataBar);
 
+  // Create bubble values and labels
+  let bubbleY = sampleValues[0];
+  let bubbleX = otuID[0];
+  let bubbleHover = labels[0];
+
   // Build the bubble chart
   let trace2 = {
-    type: "bubble",
-    x: otus,
-    y: vals,
+    text: bubbleHover,
+    x: bubbleX,
+    y: bubbleY,
     mode: "markers",
-    marker: {size: vals}
+    marker: {color: bubbleX, size: bubbleY, colorscale: 'Portland'},
   }
-  dataBubble = [trace2]
+  // Call the trace for bubble chart and create chart
+  let dataBubble = [trace2]
   Plotly.newPlot("bubble", dataBubble)
 }
 
