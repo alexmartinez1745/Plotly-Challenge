@@ -35,8 +35,6 @@ function init() {
     let demoFilter = data.metadata.filter((demo) => demo.id === metaIDs);
     // Grab first id selected
     let demos = demoFilter[0];
-    
-    
 
     // Bring in built functions for init
     // Bind a change event for dropdown changes
@@ -57,7 +55,7 @@ function buildPlots(otuID, sampleValues, labels) {
   vals = sampleValues[0].slice(0, 10).reverse();
   hoverText = labels[0].slice(0, 10).reverse();
   // check to see if values of array are correct and in order
-  console.log(`OTU selected, top 10 IDs: 
+  console.log(`OTU selected, top IDs: 
           ${otu}
   And their values:
           ${vals}`);
@@ -105,6 +103,10 @@ function metaData(demos) {
   Object.entries(demos).forEach(([key,value]) => {
     demoInfo.append("option").text(`${key} : ${value}`)
   })
+
+  // For the gauge chart
+  let gaugeFreq = demos.wfreq
+  let trace3 = 
 }
 
 // Function to change options on dropdown selector (bind to change event in init)
