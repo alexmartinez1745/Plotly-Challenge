@@ -29,7 +29,9 @@ function init() {
     let labels = sampleSort.map((label) => label.otu_labels);
 
     // Filter through the metadata for demographic info for each specific id
-    let demoInfo = data.metadata.filter((demo) => demo.id === id);
+    let demoFilter = data.metadata.filter((demo) => demo.id === id);
+    // demoFilter = demoFilter[0]
+    
 
     // Bring in built functions for init
     // Bind a change event for dropdown changes
@@ -37,7 +39,7 @@ function init() {
 
     // Build plots in seperate function then call
     buildPlots(otuID, sampleValues, labels);
-    metaData();
+    metaData(data);
   });
 }
 
@@ -86,8 +88,12 @@ function buildPlots(otuID, sampleValues, labels) {
 }
 
 // Grabbing information to fill the demographic info bootstap card
-function metaData() {
-  
+function metaData(data) {
+  let demoInfo = d3.select("#sample-metadata");
+  demoInfo.html("")
+  Object.entries(data).forEach(([key,value]) => {
+    demoInfo.append("option").text(`${key} : ${value}`)
+  })
 }
 
 // Function to change options on dropdown selector (bind to change event in init)
