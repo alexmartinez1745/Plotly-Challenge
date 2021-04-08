@@ -14,6 +14,8 @@ function init() {
     let id = mySelect.property("value");
 
     // Filter the sample data for id selected in dropdown
+    // When page first loads it will grab first id on list (940)
+    // Will be default for refreshes and opening of html page
     let sample = data.samples.filter((sample) => sample.id === id);
 
     // Sort the samples in descending order
@@ -21,10 +23,13 @@ function init() {
       return b - a;
     });
 
-    // Map to find each value for charts
+    // Map to find each value for bar and bubble charts
     let otuID = sampleSort.map((otu) => otu.otu_ids);
     let sampleValues = sampleSort.map((samps) => samps.sample_values);
     let labels = sampleSort.map((label) => label.otu_labels);
+
+    // Filter through the metadata for demographic info for each specific id
+    let demoInfo = data.metadata.filter((demo) => demo.id === id);
 
     // Bring in built functions for init
     // Bind a change event for dropdown changes
@@ -32,6 +37,7 @@ function init() {
 
     // Build plots in seperate function then call
     buildPlots(otuID, sampleValues, labels);
+    metaData();
   });
 }
 
@@ -54,7 +60,7 @@ function buildPlots(otuID, sampleValues, labels) {
     x: vals,
     y: otus,
     text: hoverText,
-    marker: {color: vals,colorscale: 'Portland'}
+    marker: { color: vals, colorscale: "Portland" },
   };
 
   // Call the trace for barchart and create chart
@@ -72,11 +78,16 @@ function buildPlots(otuID, sampleValues, labels) {
     x: bubbleX,
     y: bubbleY,
     mode: "markers",
-    marker: {color: bubbleX, size: bubbleY, colorscale: 'Portland'},
-  }
+    marker: { color: bubbleX, size: bubbleY, colorscale: "Portland" },
+  };
   // Call the trace for bubble chart and create chart
-  let dataBubble = [trace2]
-  Plotly.newPlot("bubble", dataBubble)
+  let dataBubble = [trace2];
+  Plotly.newPlot("bubble", dataBubble);
+}
+
+// Grabbing information to fill the demographic info bootstap card
+function metaData() {
+  
 }
 
 // Function to change options on dropdown selector (bind to change event in init)
@@ -86,66 +97,14 @@ handleChange = () => {
   init(id);
 };
 
+// Call init function
 init();
 
-//   // updatePlots(0);
-//     // Set up initial stuff
-//     // Filter our samples to element 940, then build plots
-//         //filter data.samples and only return the ones where id is equal to 940
-//         function updatePlots(index) {
-//             // Value of dropdown item
-//             // let id = data.samples.otu_ids;
-//             // let sample = data.samples.filter(sample => sample.id === id)
-//             // let x_bubble = sample.otu_ids;
-//             // let y_bubble = sample.sample_values;
-//             otuid = data.samples[index].otu_ids.slice(0,10).reverse()
-//             sample_values = data.samples[index].sample_values.slice(0,10).reverse()
-//             labels = data.samples[index].otu_labels
-    
-//             let trace1 = {
-//                 type: "bar",
-//                 orientation: "h",
-//                 x: sample_values,
-//                 y: otuid,
-//             }
-        
-//             datap = [trace1];
-//             Plotly.newPlot("bar", datap)
-    
-//         }
-        
-    
-//         // for bubble:
-//         // y vals and size are the sample_values
-//         // x vals are otu_ids
-//         // text is otu_labels plus the value
-    
-//         // for hbar:
-//         // x vals are sample_values
-//         // y vals are otu_ids
-//         // let id = d3.event.target.value;
-//         // let sample = data.samples.filter(sample => sample.id === id)
-//         // console.log(sample)
-//         // let otuid = data.samples.otu_ids
-//         // let sample_values = data.sample_values
-    
-//         // let trace1 = {
-//         //     type: "bar",
-//         //     orientation: "h",
-//         //     x: sample_values,
-//         //     y: otuid,
-//         // }
-    
-//         // datap = [trace1];
-//         // Plotly.newPlot("bar", datap)
-    
+
+
+
+
 //         // for demographic info:
 //         // Filter metdata for id
 //         // set internal html of demographic info card
-    
-        
-    
-//         // Create a function update plots and bind on change
-//         mySelect.on("change", () => handleChange(data));
-    
-//         // when the page first loads, build your plots for id 940
+
