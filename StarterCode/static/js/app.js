@@ -1,7 +1,7 @@
 // Function init for start of browser open
 function init() {
   // Use of D3 library to read in the samples data
-  d3.json("samples.json").then((data) => {
+  d3.json("../data/samples.json").then((data) => {
     console.log(data);
 
     // Populating select options from data in the html
@@ -28,10 +28,12 @@ function init() {
     let sampleValues = sampleSort.map((samps) => samps.sample_values);
     let labels = sampleSort.map((label) => label.otu_labels);
 
-    // meta ids are set to integers not strings, so must change
+    // meta ids are set to integers not strings, so must change with parse
     let metaIDs = parseInt(id)
+
     // Filter through the metadata for demographic info for each specific id
     let demoFilter = data.metadata.filter((demo) => demo.id === metaIDs);
+    // Grab first id selected
     let demos = demoFilter[0];
     
     
@@ -42,6 +44,8 @@ function init() {
 
     // Build plots in seperate function then call
     buildPlots(otuID, sampleValues, labels);
+
+    // Call demographic information from function
     metaData(demos);
   });
 }
@@ -50,10 +54,14 @@ function init() {
 function buildPlots(otuID, sampleValues, labels) {
   // Grab sorted samples, slice the first 10 and reverse their order
   otu = otuID[0].slice(0, 10).reverse();
-  // check to see if values of array are correct and in order
-  // console.log(otu);
   vals = sampleValues[0].slice(0, 10).reverse();
   hoverText = labels[0].slice(0, 10).reverse();
+  // check to see if values of array are correct and in order
+  console.log(`OTU selected, top 10 IDs: 
+          ${otu}
+  And their values:
+          ${vals}`);
+  
   // Creating the labels for the y axis
   otus = [];
   otu.forEach((title) => otus.push(`OTU ${title}`));
@@ -109,11 +117,4 @@ handleChange = () => {
 // Call init function
 init();
 
-
-
-
-
-//         // for demographic info:
-//         // Filter metdata for id
-//         // set internal html of demographic info card
 
