@@ -39,7 +39,8 @@ function init() {
 function buildPlots(otuID, sampleValues, labels) {
   // Grab sorted samples, slice the first 10 and reverse their order
   otu = otuID[0].slice(0, 10).reverse();
-  //   console.log(otu);
+  // check to see if values of array are correct and in order
+  // console.log(otu);
   vals = sampleValues[0].slice(0, 10).reverse();
   hoverText = labels[0].slice(0, 10).reverse();
   // Creating the labels for the y axis
@@ -58,6 +59,17 @@ function buildPlots(otuID, sampleValues, labels) {
   // Call the trace and create plot
   let dataBar = [trace1];
   Plotly.newPlot("bar", dataBar);
+
+  // Build the bubble chart
+  let trace2 = {
+    type: "bubble",
+    x: otus,
+    y: vals,
+    mode: "markers",
+    marker: {size: vals}
+  }
+  dataBubble = [trace2]
+  Plotly.newPlot("bubble", dataBubble)
 }
 
 // Function to change options on dropdown selector (bind to change event in init)
