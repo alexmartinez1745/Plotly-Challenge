@@ -28,9 +28,12 @@ function init() {
     let sampleValues = sampleSort.map((samps) => samps.sample_values);
     let labels = sampleSort.map((label) => label.otu_labels);
 
+    // meta ids are set to integers not strings, so must change
+    let metaIDs = parseInt(id)
     // Filter through the metadata for demographic info for each specific id
-    let demoFilter = data.metadata.filter((demo) => demo.id === id);
-    // demoFilter = demoFilter[0]
+    let demoFilter = data.metadata.filter((demo) => demo.id === metaIDs);
+    let demos = demoFilter[0];
+    
     
 
     // Bring in built functions for init
@@ -39,7 +42,7 @@ function init() {
 
     // Build plots in seperate function then call
     buildPlots(otuID, sampleValues, labels);
-    metaData(data);
+    metaData(demos);
   });
 }
 
@@ -88,10 +91,10 @@ function buildPlots(otuID, sampleValues, labels) {
 }
 
 // Grabbing information to fill the demographic info bootstap card
-function metaData(data) {
+function metaData(demos) {
   let demoInfo = d3.select("#sample-metadata");
   demoInfo.html("")
-  Object.entries(data).forEach(([key,value]) => {
+  Object.entries(demos).forEach(([key,value]) => {
     demoInfo.append("option").text(`${key} : ${value}`)
   })
 }
