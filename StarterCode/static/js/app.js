@@ -106,7 +106,30 @@ function metaData(demos) {
 
   // For the gauge chart
   let gaugeFreq = demos.wfreq
-  let trace3 = 
+  let trace3 = {
+    // domain: { x: [0, 1], y: [0, 1] },
+		value: gaugeFreq,
+		title: { text: "Washing Frequency" },
+		type: "indicator",
+		mode: "gauge+number",
+    gauge: {
+      axis: { range: [null, 9] },
+      bar: { color: "darkblue" },
+      steps: [
+        { range: [0, 1], color: "00CCFF" },
+        { range: [1, 2], color: "00CCFF" },
+        { range: [2, 3], color: "00CCCC" },
+        { range: [3, 4], color: "00CCCC" },
+        { range: [4, 5], color: "00CC99" },
+        { range: [5, 6], color: "00CC60" },
+        { range: [6, 7], color: "00CC49" },
+        { range: [7, 8], color: "00CC33" },
+        { range: [8, 9], color: "00CC00" },
+      ]
+    }
+  }
+  let dataGauge = [trace3]
+  Plotly.newPlot("gauge", dataGauge)
 }
 
 // Function to change options on dropdown selector (bind to change event in init)
