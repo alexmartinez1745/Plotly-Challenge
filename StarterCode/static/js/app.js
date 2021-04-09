@@ -127,7 +127,7 @@ function metaData(demos) {
       ],
     },
   };
-  let layout = { width: 450, height: 250, margin: { t: 0, b: 0 } };
+  let layout = { width: 450, height: 220, margin: { t: 0, b: 0 } };
   let dataGauge = [trace3];
   Plotly.newPlot("gauge", dataGauge, layout);
 }
