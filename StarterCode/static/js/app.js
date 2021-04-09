@@ -29,7 +29,7 @@ function init() {
     let labels = sampleSort.map((label) => label.otu_labels);
 
     // meta ids are set to integers not strings, so must change with parse
-    let metaIDs = parseInt(id)
+    let metaIDs = parseInt(id);
 
     // Filter through the metadata for demographic info for each specific id
     let demoFilter = data.metadata.filter((demo) => demo.id === metaIDs);
@@ -59,7 +59,7 @@ function buildPlots(otuID, sampleValues, labels) {
           ${otu}
   And their values:
           ${vals}`);
-  
+
   // Creating the labels for the y axis
   otus = [];
   otu.forEach((title) => otus.push(`OTU ${title}`));
@@ -99,19 +99,18 @@ function buildPlots(otuID, sampleValues, labels) {
 // Grabbing information to fill the demographic info bootstap card
 function metaData(demos) {
   let demoInfo = d3.select("#sample-metadata");
-  demoInfo.html("")
-  Object.entries(demos).forEach(([key,value]) => {
-    demoInfo.append("option").text(`${key} : ${value}`)
-  })
+  demoInfo.html("");
+  Object.entries(demos).forEach(([key, value]) => {
+    demoInfo.append("option").text(`${key} : ${value}`);
+  });
 
   // For the gauge chart
-  let gaugeFreq = demos.wfreq
+  let gaugeFreq = demos.wfreq;
   let trace3 = {
     // domain: { x: [0, 1], y: [0, 1] },
-		value: gaugeFreq,
-		title: { text: "Washing Frequency" },
-		type: "indicator",
-		mode: "gauge+number",
+    value: gaugeFreq,
+    type: "indicator",
+    mode: "gauge+number",
     gauge: {
       axis: { range: [null, 9] },
       bar: { color: "darkblue" },
@@ -125,11 +124,12 @@ function metaData(demos) {
         { range: [6, 7], color: "00CC49" },
         { range: [7, 8], color: "00CC33" },
         { range: [8, 9], color: "00CC00" },
-      ]
-    }
-  }
-  let dataGauge = [trace3]
-  Plotly.newPlot("gauge", dataGauge)
+      ],
+    },
+  };
+  let layout = { width: 450, height: 250, margin: { t: 0, b: 0 } };
+  let dataGauge = [trace3];
+  Plotly.newPlot("gauge", dataGauge, layout);
 }
 
 // Function to change options on dropdown selector (bind to change event in init)
@@ -141,5 +141,3 @@ handleChange = () => {
 
 // Call init function
 init();
-
-
