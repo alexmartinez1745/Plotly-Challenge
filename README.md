@@ -1,5 +1,6 @@
-# Plotly-Challenge
 ## Completed Project Page: [Belly Button Biodiversity](https://alexmartinez1745.github.io/Plotly-Challenge/)
+
+Tools used: Plotly, Bootstrap (V3.3), D3 library 
 
 Built an interactive dashboard to explore the Belly Button Biodiversity dataset provided in the data folder, which catalogs the microbes that colonize human navels.
 
